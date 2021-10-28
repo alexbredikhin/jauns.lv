@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Core\TriviaGame\Application\Validators;
 
 use Illuminate\Foundation\Http\FormRequest;
-use JetBrains\PhpStorm\ArrayShape;
 
 final class QuestionAnswerValidator extends FormRequest
 {

@@ -143,6 +143,13 @@
                             $('.alert').removeClass('alert-danger').css('display', 'none').text('');
                         }, 2000)
                     }
+
+                    $('.alert').addClass('alert-danger').css('display', 'block').text('Sorry, something went wrong');
+                    finishGame();
+                    cleanPreviousGame();
+                    setTimeout(function () {
+                        $('.alert').removeClass('alert-danger').css('display', 'none').text('');
+                    }, 2000)
                 }
             });
         });
