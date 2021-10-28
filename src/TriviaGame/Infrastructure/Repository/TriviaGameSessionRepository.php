@@ -10,7 +10,7 @@ use Illuminate\Contracts\Session\Session;
 
 final class TriviaGameSessionRepository implements TriviaGameRepository
 {
-    private const TRIVIA_GAME_SESSION_KEY = 'answers';
+    private const TRIVIA_GAME_SESSION_KEY = 'trivia_game_questions';
 
     /**
      * @param Session $sessionHandler
@@ -23,12 +23,12 @@ final class TriviaGameSessionRepository implements TriviaGameRepository
      */
     public function save(TriviaGameEntity $questionEntity,): void
     {
-        $currentAnswers = $this->getAllQuestions();
-        $currentAnswers[] = $questionEntity;
+        $currentGameQuestions = $this->getAllQuestions();
+        $currentGameQuestions[] = $questionEntity;
 
         $this->sessionHandler->put(
             self::TRIVIA_GAME_SESSION_KEY,
-            $currentAnswers
+            $currentGameQuestions
         );
     }
 
@@ -71,12 +71,12 @@ final class TriviaGameSessionRepository implements TriviaGameRepository
      */
     public function updateLastQuestion(TriviaGameEntity $triviaGameEntity,): void
     {
-        $getAnswers = $this->getAllQuestions();
-        array_pop($getAnswers);
-        $getAnswers[] = $triviaGameEntity;
+        $getQuestions = $this->getAllQuestions();
+        array_pop($getQuestions);
+        $getQuestions[] = $triviaGameEntity;
         $this->sessionHandler->put(
             self::TRIVIA_GAME_SESSION_KEY,
-            $getAnswers
+            $getQuestions
         );
     }
 }
