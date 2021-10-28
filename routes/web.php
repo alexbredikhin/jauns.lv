@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TriviaGameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/question', [TriviaGameController::class, 'getQuestion']);
+Route::post('/answer', [TriviaGameController::class, 'getAnswer']);
+Route::post('/clean-game', [TriviaGameController::class, 'cleanGame']);
