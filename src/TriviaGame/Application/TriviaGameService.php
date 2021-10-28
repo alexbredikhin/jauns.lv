@@ -79,28 +79,31 @@ final class TriviaGameService
             throw new NotFoundQuestionException('Question does not exist', 404);
         }
 
+        $countQuestions = $this->triviaGameRepository->countQuestions();
+        $countCorrectAnswers = $countQuestions - 1;
+
         if (!in_array($answer, $getLastQuestion->getAnswers(), true)) {
-            throw new InvalidAnswerException('Invalid answer', 400);
+            throw new InvalidAnswerException('Invalid answer! You answered on ' . $countCorrectAnswers, 400);
         }
 
         if ($answer !== $getLastQuestion->getCorrectAnswer()) {
             $this->triviaGameRepository->deleteAll();
 
             return new CheckQuestionDto(
-                'Answer failed. Correct answer was ' . $getLastQuestion->getCorrectAnswer() .
-                '. You lose! Try again!',
+                'Answer failed. Correct answer was ' . $getLastQuestion->getCorrectAnswer()
+                . '. You answered on ' . $countCorrectAnswers . ' questions' . '. You lose! Try again!',
                 400
             );
         }
 
-        $answerEntity = $getLastQuestion->setUserAnswer($answer);
-        $this->triviaGameRepository->updateLastQuestion($answerEntity);
-
-        if ($this->triviaGameRepository->countQuestions() === self::MAX_GAME_PARTS) {
+        if ($countQuestions === self::MAX_GAME_PARTS) {
             $this->triviaGameRepository->deleteAll();
 
-            return new CheckQuestionDto('Game finished. You win!');
+            return new CheckQuestionDto('Game finished. You win! You answered on 20 questions!');
         }
+
+        $answerEntity = $getLastQuestion->setUserAnswer($answer);
+        $this->triviaGameRepository->updateLastQuestion($answerEntity);
 
         return new CheckQuestionDto('Success');
     }

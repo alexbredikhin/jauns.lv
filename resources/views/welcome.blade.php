@@ -114,11 +114,12 @@
                     "answer": $(this).text(),
                 },
                 success: function (data) {
+
                     $('.spinner-border').css('display', 'none');
                     questionCorrect++;
                     if (questionCorrect === 20) {
                         questionCorrect = 0;
-                        $('.alert').addClass('alert-success').css('display', 'block').text('You win!');
+                        $('.alert').addClass('alert-success').css('display', 'block').text(data);
                         finishGame();
 
                         setTimeout(function () {
@@ -126,7 +127,7 @@
                         }, 2000)
                         return;
                     }
-                    $('.alert').addClass('alert-success').css('display', 'block').text('Success');
+                    $('.alert').addClass('alert-success').css('display', 'block').text(data);
                     setTimeout(function () {
                         $('.alert').removeClass('alert-success').css('display', 'none').text('');
                     }, 2000)
