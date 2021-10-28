@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\TriviaGameController;
+use App\Http\Controllers\TriviaGame\TriviaGameController;
 use Illuminate\Support\Facades\Route;
 
 /*

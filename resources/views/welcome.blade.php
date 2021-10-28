@@ -142,6 +142,8 @@
                         setTimeout(function () {
                             $('.alert').removeClass('alert-danger').css('display', 'none').text('');
                         }, 2000)
+
+                        return;
                     }
 
                     $('.alert').addClass('alert-danger').css('display', 'block').text('Sorry, something went wrong');
